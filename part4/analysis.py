@@ -58,3 +58,25 @@ sns.boxplot(x='sex', y='active_day', data=merged_data)
 plt.xticks([0, 1], ['女性', '男性'])
 plt.title('按性别分类的活跃天数统计（剔除掉活跃天数为0的数据）')
 plt.show()
+
+#* 5. 写入output.txt文件
+f = open('output.txt', 'w', encoding='utf-8')
+f.write('两表合并后的统计数据展示：\n')
+f.write('merged_data.head():\n')
+f.write(f'{merged_data.head()}\n\n')
+f.write('merged_data.describe():\n')
+f.write(f'{merged_data.describe()}\n\n')
+
+f.write('将用户根据性别分组，并计算每组的蚂蚁金服活跃天数的均值和标准差：\n')
+f.write(f'{grouped_data}\n\n')
+
+f.write('独立样本t检验的假设如下:\n')
+f.write('零假设（H0）：性别对蚂蚁金服活跃天数没有显著影响。\n')
+f.write('备择假设（H1）：性别对蚂蚁金服活跃天数有显著影响。\n')
+
+f.write(f'独立样本t检验结果: t-statistic: {t_stat}, p-value: {p_value}\n')
+
+if p_value < 0.05:
+    f.write('结论：p值小于0.05, 拒绝零假设，说明性别对蚂蚁金服活跃天数有显著影响。\n')
+else:
+    f.write('结论：p值大于0.05，不能拒绝零假设，说明性别对蚂蚁金服活跃天数没有显著影响。\n')
